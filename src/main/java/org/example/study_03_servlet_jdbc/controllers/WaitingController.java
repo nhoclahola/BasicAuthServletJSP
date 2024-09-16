@@ -20,7 +20,7 @@ public class WaitingController extends HttpServlet
         if (session != null && session.getAttribute("account") != null)
         {
             UserModel u = (UserModel) session.getAttribute("account");
-            req.setAttribute("username", u.getUserName());
+            req.setAttribute("username", u.getUsername());
             if (u.getRoleId() == 1)
             {
                 resp.sendRedirect(req.getContextPath() + "/admin/home");

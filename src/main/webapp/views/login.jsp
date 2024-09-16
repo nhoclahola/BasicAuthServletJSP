@@ -38,7 +38,8 @@
         }
 
         h1 {
-            color: #4CAF50;
+            color: blue;
+            font-family: "Century Gothic", ui-monospace;
         }
 
         label {
@@ -70,9 +71,15 @@
             border: none;
             color: white;
             cursor: pointer;
-            background-color: #4CAF50;
+            background-color: blue;
             width: 100%;
             font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: darkblue; 
+            transform: scale(1.05);
         }
 
         .wrap {
@@ -84,7 +91,7 @@
 </head>
 <body>
 <div class="main">
-    <h1>Login</h1>
+    <h1>LOGIN</h1>
     <h3>Enter your login credentials</h3>
     <form action="login" method="POST">
         <label for="first">
@@ -106,13 +113,20 @@
         <div class="wrap">
             <button type="submit"
                     onclick="solve()">
-                Submit
+                Login
             </button>
         </div>
     </form>
-    <h5 style="color: red"><%= request.getAttribute("alert") %></h5>
+    <h5 style="color: red">
+        <%
+            Object alert = request.getAttribute("alert");
+            if (alert != null) {
+                out.print(alert);
+            }
+        %>
+    </h5>
     <p>Not registered?
-        <a href="#"
+        <a href="register"
            style="text-decoration: none;">
             Create an account
         </a>

@@ -87,7 +87,7 @@
 <body>
 <div class="main">
     <h1>Register</h1>
-    <form action="login" method="POST">
+    <form action="register" method="POST">
         <label for="username">
             Username:
         </label>
