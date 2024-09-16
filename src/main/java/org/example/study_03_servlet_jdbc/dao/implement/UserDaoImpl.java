@@ -17,11 +17,10 @@ public class UserDaoImpl implements IUserDao
     @Override
     public UserModel findByUsername(String username)
     {
-        String sql = "SELECT * FROM users WHERE username = ? ";
-        try
+        String query = "SELECT * FROM users WHERE username = ? ";
+        conn = DBConnectMySQL.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(query))
         {
-            conn = DBConnectMySQL.getConnection();
-            ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             rs = ps.executeQuery();
             while (rs.next())
@@ -29,9 +28,9 @@ public class UserDaoImpl implements IUserDao
                 UserModel user = new UserModel();
                 user.setId(rs.getInt("id"));
                 user.setEmail(rs.getString("email"));
-                user.setUserName(rs.getString("username"));
+                user.setUsername(rs.getString("username"));
                 user.setFullName(rs.getString("fullname"));
-                user.setPassWord(rs.getString("password"));
+                user.setPassword(rs.getString("password"));
                 user.setAvatar(rs.getString("avatar"));
                 user.setRoleId(Integer.parseInt(rs.getString("role_id")));
                 user.setPhone(rs.getString("phone"));
@@ -49,17 +48,39 @@ public class UserDaoImpl implements IUserDao
     @Override
     public boolean checkExistUsername(String username)
     {
-        String sql = "SELECT * FROM users WHERE username = ? ";
-        try
+        String query = "SELECT 1 FROM users WHERE username = ?";
+        Connection conn = DBConnectMySQL.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(query))
         {
-            conn = DBConnectMySQL.getConnection();
-            ps = conn.prepareStatement(sql);
             ps.setString(1, username);
-            rs = ps.executeQuery();
-            return rs.next();
+            try (ResultSet rs = ps.executeQuery())
+            {
+                return rs.next();
+            }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkExistEmail(String email)
+    {
+        String query = "SELECT 1 FROM users WHERE email = ?";
+        Connection conn = DBConnectMySQL.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(query))
+        {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery())
+            {
+                return rs.next();
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
             return false;
         }
     }
@@ -67,16 +88,17 @@ public class UserDaoImpl implements IUserDao
     @Override
     public void insert(UserModel user)
     {
-        String sql = "INSERT INTO users(username, password, email, fullname, phone) VALUES(?, ?, ?, ?, ?)";
-        try
+        String sql = "INSERT INTO users(username, password, email, fullname, phone, role_id, created_date) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        conn = DBConnectMySQL.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql))
         {
-            conn = DBConnectMySQL.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getUserName());
-            ps.setString(2, user.getPassWord());
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getFullName());
             ps.setString(5, user.getPhone());
+            ps.setInt(6, user.getRoleId());
+            ps.setString(7, user.getCreatedDate().toString());
             ps.execute();
         }
         catch (Exception e)

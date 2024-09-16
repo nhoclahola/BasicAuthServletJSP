@@ -5,14 +5,13 @@ import org.example.study_03_servlet_jdbc.dao.implement.UserDaoImpl;
 import org.example.study_03_servlet_jdbc.models.UserModel;
 import org.example.study_03_servlet_jdbc.services.IUserService;
 
-import java.util.Date;
-
 public class UserServiceImpl implements IUserService
 {
     IUserDao userDao = new UserDaoImpl();
 
     @Override
-    public UserModel get(String username) {
+    public UserModel get(String username)
+    {
         return userDao.findByUsername(username);
     }
 
@@ -24,9 +23,11 @@ public class UserServiceImpl implements IUserService
     }
 
     @Override
-    public UserModel login(String username, String password) {
+    public UserModel login(String username, String password)
+    {
         UserModel user = this.get(username);
-        if (user != null && password.equals(user.getPassWord())) {
+        if (user != null && password.equals(user.getPassword()))
+        {
             return user;
         }
         return null;
@@ -35,25 +36,26 @@ public class UserServiceImpl implements IUserService
     @Override
     public boolean register(String username, String password, String email, String fullname, String phone)
     {
-        if (userDao.checkExistUsername(username)) {
+        if (userDao.checkExistUsername(username))
+        {
             return false;
         }
-        long millis=System.currentTimeMillis();
-        java.sql.Date date=new java.sql.Date(millis);
-        userDao.insert(new UserModel(0, username, password, email, fullname, "avatar", 1, phone, new Date()));
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        userDao.insert(new UserModel(0, username, password, email, fullname, "avatar", 3, phone, date));
         return true;
-    }
-
-    @Override
-    public boolean checkExistEmail(String email)
-    {
-        return false;
     }
 
     @Override
     public boolean checkExistUsername(String username)
     {
-        return false;
+        return userDao.checkExistUsername(username);
+    }
+
+    @Override
+    public boolean checkExistEmail(String email)
+    {
+        return userDao.checkExistEmail(email);
     }
 
     @Override

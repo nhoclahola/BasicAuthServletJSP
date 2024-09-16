@@ -6,5 +6,8 @@ public interface IUserDao
 {
     UserModel findByUsername(String username);
     boolean checkExistUsername(String username);
+
+    public boolean checkExistEmail(String email);
+
     void insert(UserModel user);
 }
