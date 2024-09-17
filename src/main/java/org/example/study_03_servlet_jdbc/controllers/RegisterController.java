@@ -3,6 +3,7 @@ package org.example.study_03_servlet_jdbc.controllers;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import org.example.study_03_servlet_jdbc.constants.Constant;
 import org.example.study_03_servlet_jdbc.services.IUserService;
 import org.example.study_03_servlet_jdbc.services.implement.UserServiceImpl;
 
@@ -35,7 +36,7 @@ public class RegisterController extends HttpServlet
                 }
             }
         }
-        req.getRequestDispatcher("views/register.jsp").forward(req, resp);
+        req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class RegisterController extends HttpServlet
         {
             alertMsg = "The username already exists!";
             req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("views/register.jsp").forward(req, resp);
+            req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
             return;
         }
         if (service.checkExistEmail(email))
@@ -62,7 +63,7 @@ public class RegisterController extends HttpServlet
             alertMsg = "The email already exists!";
             System.out.println(alertMsg);
             req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("views/register.jsp").forward(req, resp);
+            req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
             return;
         }
         boolean isSuccess = service.register(username, password, email, fullname, phone);
@@ -77,7 +78,7 @@ public class RegisterController extends HttpServlet
         {
             alertMsg = "System error!";
             req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("views/register.jsp").forward(req, resp);
+            req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
         }
     }
 }

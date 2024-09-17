@@ -4,6 +4,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import org.example.study_03_servlet_jdbc.constants.Constant;
 import org.example.study_03_servlet_jdbc.models.UserModel;
 import org.example.study_03_servlet_jdbc.services.IUserService;
 import org.example.study_03_servlet_jdbc.services.implement.UserServiceImpl;
@@ -38,7 +39,7 @@ public class LoginController extends HttpServlet
                 }
             }
         }
-        req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+        req.getRequestDispatcher(Constant.Path.LOGIN).forward(req, resp);
     }
 
     @Override
@@ -53,51 +54,45 @@ public class LoginController extends HttpServlet
         String remember = req.getParameter("remember");
 
         if ("on".equals(remember))
-        {
             isRememberMe = true;
-        }
-        String alertMsg =
-                "";
+        String alertMsg = "";
         if (username.isEmpty() || password.isEmpty())
         {
             alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
             req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+            req.getRequestDispatcher(Constant.Path.LOGIN).forward(req, resp);
             return;
         }
 
         IUserService service = new UserServiceImpl();
 
         UserModel user = service.login(username, password);
-        boolean check = false;
         if (user != null)
         {
             HttpSession session = req.getSession(true);
             session.setAttribute("account", user);
-//            if (isRememberMe)
-//            {
-//                saveRemeberMe(resp, username);
-//            }
+            if (isRememberMe)
+            {
+                saveRemeberMe(resp, username);
+            }
 
             resp.sendRedirect(req.getContextPath() + "/waiting");
         }
         else
         {
             alertMsg =
-                    "Tài khoản hoặc mật khẩu không đúng";
+                    "Username or password is incorrect!";
             req.setAttribute("alert", alertMsg);
-            req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+            req.getRequestDispatcher(Constant.Path.LOGIN).forward(req, resp);
         }
-//        req.setAttribute("msg", check);
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/login.jsp");
-//        requestDispatcher.forward(req, resp);
     }
 
-//    private void saveRemeberMe(HttpServletResponse response, String username)
-//    {
-//        Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER,
-//                username);
-//        cookie.setMaxAge(30*60);
-//        response.addCookie(cookie);
-//    }
+    private void saveRemeberMe(HttpServletResponse response, String username)
+    {
+        Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER,
+                username);
+        cookie.setMaxAge(30*60);
+        cookie.setPath("/");    // Root for entire web
+        response.addCookie(cookie);
+    }
 }
