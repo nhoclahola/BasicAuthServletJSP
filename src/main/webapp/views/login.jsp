@@ -53,7 +53,7 @@
         }
 
 
-        input {
+        .input-a {
             display: block;
             width: 100%;
             margin-bottom: 15px;
@@ -87,6 +87,20 @@
             justify-content: center;
             align-items: center;
         }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .remember-me label {
+            font-size: 12px;
+        }
+
+        .remember-me input {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -94,21 +108,27 @@
     <h1>LOGIN</h1>
     <h3>Enter your login credentials</h3>
     <form action="login" method="POST">
-        <label for="first">
+        <label for="username">
             Username:
         </label>
-        <input type="text"
-               id="first"
+        <input class="input-a" type="text"
+               id="username"
                name="username"
-               placeholder="Enter your Username" required>
+               placeholder="Enter your username" required>
 
         <label for="password">
             Password:
         </label>
-        <input type="password"
+        <input class="input-a" type="password"
                id="password"
                name="password"
-               placeholder="Enter your Password" required>
+               placeholder="Enter your password" required>
+
+        <div class="remember-me">
+            <input type="checkbox" id="remember" name="remember">
+            <label for="remember">Remember me</label>
+        </div>
+
 
         <div class="wrap">
             <button type="submit"

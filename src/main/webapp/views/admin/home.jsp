@@ -12,25 +12,42 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Administrator's Home Page</title>
+    <style>
+        .homepage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
 <c:choose>
     <c:when test="${sessionScope.account == null}">
+        <div class="homepage">
+            <h1>You doesn't have administrator role or haven't login, please login or register</h1>
+        </div>
         <div class="col-sm-6">
             <ul class="list-inline right-topbar pull-right">
-                <li><a href="${pageContext.request.contextPath }/login">Đăng nhập</a>
-                    | <a href="${pageContext.request.contextPath }/register">Đăng ký</a></li>
+                <li><a href="${pageContext.request.contextPath }/login">Login</a>
+                    | <a href="${pageContext.request.contextPath }/register">Register</a></li>
                 <li><i class="search fa fa-search search-button"></i></li>
             </ul>
         </div>
     </c:when>
+    <c:when test="${sessionScope.account.roleId != 1}">
+        <div class="homepage">
+            <h1>You doesn't have administrator role</h1>
+        </div>
+    </c:when>
     <c:otherwise>
+        <div class="homepage">
+            <h1>Administrator's Home Page</h1>
+        </div>
         <div class="col-sm-6">
             <ul class="list-inline right-topbar pull-right">
-                <li><a href="${pageContext.request.contextPath
-}/member/myaccount">${sessionScope.account.fullName}</a> | <a
-                        href="${pageContext.request.contextPath }/logout">Đăng Xuất</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/myaccount">${sessionScope.account.fullName}</a> |
+                    <a href="${pageContext.request.contextPath }/logout">Logout</a></li>
                 <li><i class="search fa fa-search search-button"></i></li>
             </ul>
         </div>
