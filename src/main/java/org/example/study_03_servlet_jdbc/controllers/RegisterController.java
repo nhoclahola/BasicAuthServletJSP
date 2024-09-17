@@ -46,6 +46,7 @@ public class RegisterController extends HttpServlet
         req.setCharacterEncoding("UTF-8");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String rePassword = req.getParameter("re-password");
         String email = req.getParameter("email");
         String fullname = req.getParameter("fullname");
         String phone = req.getParameter("phone");
@@ -61,7 +62,13 @@ public class RegisterController extends HttpServlet
         if (service.checkExistEmail(email))
         {
             alertMsg = "The email already exists!";
-            System.out.println(alertMsg);
+            req.setAttribute("alert", alertMsg);
+            req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
+            return;
+        }
+        if (!password.equals(rePassword))
+        {
+            alertMsg = "Password and retype password do not matches!";
             req.setAttribute("alert", alertMsg);
             req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
             return;
