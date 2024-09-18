@@ -19,7 +19,7 @@ public class UserServiceImpl implements IUserService
     @Override
     public void insert(UserModel user)
     {
-
+        userDao.insert(user);
     }
 
     @Override
@@ -33,14 +33,14 @@ public class UserServiceImpl implements IUserService
     }
 
     @Override
-    public boolean register(String username, String password, String email, String fullname, String phone)
+    public boolean register(String username, String password, String email, String fullName, int roleId, String phone)
     {
         // Controller has already checked if username and email are unique, so we don't need to do this again (performance boost :) )
         // Hash password by bcrypt
         String encodedPassword = PasswordUtil.encodePassword(password);
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
-        userDao.insert(new UserModel(0, username, encodedPassword, email, fullname, "avatar", 3, phone, date));
+        userDao.insert(new UserModel(0, username, encodedPassword, email, fullName, null, roleId, phone, date));
         return true;
     }
 

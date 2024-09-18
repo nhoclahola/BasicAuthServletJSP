@@ -30,7 +30,7 @@ public class UserDaoImpl implements IUserDao
                 user.setId(rs.getInt("id"));
                 user.setEmail(rs.getString("email"));
                 user.setUsername(rs.getString("username"));
-                user.setFullName(rs.getString("fullname"));
+                user.setFullName(rs.getString("full_name"));
                 user.setPassword(rs.getString("password"));
                 user.setAvatar(rs.getString("avatar"));
                 user.setRoleId(Integer.parseInt(rs.getString("role_id")));
@@ -89,7 +89,7 @@ public class UserDaoImpl implements IUserDao
     @Override
     public void insert(UserModel user)
     {
-        String sql = "INSERT INTO users(username, password, email, fullname, phone, role_id, created_date) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users(username, password, email, full_name, phone, avatar, role_id, created_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         conn = DBConnectMySQL.getConnection();
         try (PreparedStatement ps = conn.prepareStatement(sql))
         {
@@ -98,8 +98,9 @@ public class UserDaoImpl implements IUserDao
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getFullName());
             ps.setString(5, user.getPhone());
-            ps.setInt(6, user.getRoleId());
-            ps.setString(7, user.getCreatedDate().toString());
+            ps.setString(6, user.getAvatar());
+            ps.setInt(7, user.getRoleId());
+            ps.setString(8, user.getCreatedDate().toString());
             ps.execute();
         }
         catch (Exception e)

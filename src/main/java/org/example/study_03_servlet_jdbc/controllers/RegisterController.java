@@ -73,7 +73,8 @@ public class RegisterController extends HttpServlet
             req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
             return;
         }
-        boolean isSuccess = service.register(username, password, email, fullName, phone);
+        // Role ID when create account in this controller will be 3 (User role)
+        boolean isSuccess = service.register(username, password, email, fullName, 3, phone);
         if (isSuccess)
         {
             //SendMail sm = new SendMail();

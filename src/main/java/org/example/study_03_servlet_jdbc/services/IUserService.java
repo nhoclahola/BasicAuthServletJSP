@@ -4,14 +4,13 @@ import org.example.study_03_servlet_jdbc.models.UserModel;
 
 public interface IUserService
 {
-    public UserModel get(String username);
+    UserModel get(String username);
 
     void insert(UserModel user);
 
-    public UserModel login(String username, String password);
+    UserModel login(String username, String password);
 
-    boolean register(String email, String password, String username, String
-            fullname, String phone);
+    boolean register(String username, String password, String email, String fullName, int roleId, String phone);
 
     boolean checkExistEmail(String email);
 
