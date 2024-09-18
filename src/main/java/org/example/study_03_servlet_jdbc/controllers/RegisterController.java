@@ -48,7 +48,7 @@ public class RegisterController extends HttpServlet
         String password = req.getParameter("password");
         String rePassword = req.getParameter("re-password");
         String email = req.getParameter("email");
-        String fullname = req.getParameter("fullname");
+        String fullName = req.getParameter("fullName");
         String phone = req.getParameter("phone");
         IUserService service = new UserServiceImpl();
         String alertMsg = "";
@@ -73,7 +73,7 @@ public class RegisterController extends HttpServlet
             req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
             return;
         }
-        boolean isSuccess = service.register(username, password, email, fullname, phone);
+        boolean isSuccess = service.register(username, password, email, fullName, phone);
         if (isSuccess)
         {
             //SendMail sm = new SendMail();
