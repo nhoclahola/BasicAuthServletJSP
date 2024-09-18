@@ -1,4 +1,4 @@
-package org.example.study_03_servlet_jdbc.controllers.admin;
+package org.example.study_03_servlet_jdbc.controllers;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,13 +10,13 @@ import org.example.study_03_servlet_jdbc.constants.Constant;
 
 import java.io.IOException;
 
-@WebServlet("/admin/home")
-public class HomeController extends HttpServlet
+@WebServlet("/member/my-account")
+public class MyAccountController extends HttpServlet
 {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(Constant.Path.ADMIN_HOME);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(Constant.Path.MY_ACCOUNT);
         requestDispatcher.forward(req, resp);
     }
 }

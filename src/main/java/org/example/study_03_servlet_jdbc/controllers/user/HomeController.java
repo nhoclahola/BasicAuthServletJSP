@@ -1,4 +1,4 @@
-package org.example.study_03_servlet_jdbc.controllers.admin;
+package org.example.study_03_servlet_jdbc.controllers.user;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,13 +10,13 @@ import org.example.study_03_servlet_jdbc.constants.Constant;
 
 import java.io.IOException;
 
-@WebServlet("/admin/home")
+@WebServlet("/home")
 public class HomeController extends HttpServlet
 {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(Constant.Path.ADMIN_HOME);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(Constant.Path.USER_HOME);
         requestDispatcher.forward(req, resp);
     }
 }
