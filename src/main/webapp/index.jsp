@@ -5,6 +5,9 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
+<%
+    response.sendRedirect(request.getContextPath() + "/waiting");
+%>
 <a href="login">Login Page</a>
 </body>
 </html>
