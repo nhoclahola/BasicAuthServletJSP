@@ -1,10 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: nhoclahola
-  Date: 9/16/2024
-  Time: 3:09 PM
+  Date: 9/18/2024
+  Time: 10:53 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="core" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
@@ -12,7 +13,7 @@
 
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Forgot password</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -78,7 +79,7 @@
         }
 
         button:hover {
-            background-color: darkblue; 
+            background-color: darkblue;
             transform: scale(1.05);
         }
 
@@ -106,45 +107,34 @@
 </head>
 <body>
 <div class="main">
-    <h1>LOGIN</h1>
-    <h3>Enter your login credentials</h3>
-    <h5 style="color: mediumseagreen">
-        <%
-            // Get notify from session attribute
-            Object success = request.getSession().getAttribute("success");
-            if (success != null) {
-                out.print(success);
-                request.getSession().removeAttribute("success");
-            }
-        %>
-    </h5>
-    <form action="login" method="POST">
-        <label for="username">
-            Username:
+    <h1>FORGOT PASSWORD</h1>
+    <form action="forgot-password" method="POST">
+        <label for="email">
+            Enter your account's email:
         </label>
         <input class="input-a" type="text"
-               id="username"
-               name="username"
-               placeholder="Enter your username" required>
+               id="email"
+               name="email"
+               placeholder="Email" required>
 
         <label for="password">
-            Password:
+            Enter your new password:
         </label>
         <input class="input-a" type="password"
                id="password"
                name="password"
-               placeholder="Enter your password" required>
-
-        <div class="remember-me">
-            <input type="checkbox" id="remember" name="remember">
-            <label for="remember">Remember me</label>
-        </div>
-
-
+               placeholder="Password" required>
+        <label for="password">
+            Re-enter your new password:
+        </label>
+        <input class="input-a" type="password"
+               id="re-password"
+               name="re-password"
+               placeholder="Re-enter password" required>
         <div class="wrap">
             <button type="submit"
                     onclick="solve()">
-                Login
+                Reset password
             </button>
         </div>
     </form>
@@ -156,17 +146,6 @@
             }
         %>
     </h5>
-    <p>
-        <a href="forgot-password" style="text-decoration: none;">
-            Forgot password?
-        </a>
-    </p>
-    <p>Not registered?
-        <a href="register"
-           style="text-decoration: none;">
-            Create an account
-        </a>
-    </p>
 </div>
 </body>
 </html>

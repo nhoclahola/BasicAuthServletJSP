@@ -7,6 +7,7 @@ import org.example.study_03_servlet_jdbc.models.UserModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDaoImpl implements IUserDao
 {
@@ -104,6 +105,24 @@ public class UserDaoImpl implements IUserDao
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean changePassword(String email, String newEncodedPassword)
+    {
+        String sql =  "UPDATE users SET password = ? WHERE email = ?";
+        conn = DBConnectMySQL.getConnection();
+        try (PreparedStatement ps = conn.prepareStatement(sql))
+        {
+            ps.setString(1, newEncodedPassword);
+            ps.setString(2, email);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        }
+        catch (SQLException exception)
+        {
+            return false;
         }
     }
 }

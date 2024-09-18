@@ -16,7 +16,6 @@ public class UserServiceImpl implements IUserService
         return userDao.findByUsername(username);
     }
 
-
     @Override
     public void insert(UserModel user)
     {
@@ -61,5 +60,12 @@ public class UserServiceImpl implements IUserService
     public boolean checkExistPhone(String phone)
     {
         return false;
+    }
+
+    @Override
+    public boolean changePassword(String email, String newPassword)
+    {
+        String newEncodedPassword = PasswordUtil.encodePassword(newPassword);
+        return userDao.changePassword(email, newEncodedPassword);
     }
 }

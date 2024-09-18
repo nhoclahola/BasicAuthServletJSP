@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet
         String alertMsg = "";
         if (username.isEmpty() || password.isEmpty())
         {
-            alertMsg = "Tài khoản hoặc mật khẩu không được rỗng";
+            alertMsg = "Username or password should not be null";
             req.setAttribute("alert", alertMsg);
             req.getRequestDispatcher(Constant.Path.LOGIN).forward(req, resp);
             return;
@@ -73,7 +73,7 @@ public class LoginController extends HttpServlet
             session.setAttribute("account", user);
             if (isRememberMe)
             {
-                saveRemeberMe(resp, username);
+                saveRememberMe(resp, username);
             }
 
             resp.sendRedirect(req.getContextPath() + "/waiting");
@@ -87,7 +87,7 @@ public class LoginController extends HttpServlet
         }
     }
 
-    private void saveRemeberMe(HttpServletResponse response, String username)
+    private void saveRememberMe(HttpServletResponse response, String username)
     {
         Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER,
                 username);
