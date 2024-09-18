@@ -1,6 +1,8 @@
 package org.example.study_03_servlet_jdbc.connection;
 
 import com.mysql.cj.jdbc.Driver;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,11 +16,22 @@ public class DBConnectMySQL
     private static final String DB_URL = "jdbc:mysql://localhost:3306/ltweb_test";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
-    private static Connection connection = null;
 
-    static {
-        // Close Connection when program stopped
-        Runtime.getRuntime().addShutdownHook(new Thread(DBConnectMySQL::closeConnection));
+    public static final HikariDataSource dataSource;
+
+    static
+    {
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        config.setJdbcUrl(DB_URL);
+        config.setUsername(USERNAME);
+        config.setPassword(PASSWORD);
+        // All of bellow config is HikariConfig's default (just to clarify)
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(10);
+        config.setIdleTimeout(600000);
+
+        dataSource = new HikariDataSource(config);
     }
 
     private DBConnectMySQL()
@@ -27,35 +40,14 @@ public class DBConnectMySQL
 
     public static Connection getConnection()
     {
-        if (connection == null)
+        try
         {
-            try
-            {
-                // Only register the driver and create the connection once
-                DriverManager.registerDriver(new Driver());
-                connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            }
-            catch (SQLException e)
-            {
-                Logger.getLogger(DBConnectMySQL.class.getName()).log(Level.SEVERE, null, e);
-            }
+            return dataSource.getConnection();
         }
-        return connection;
-    }
-
-    public static void closeConnection()
-    {
-        if (connection != null)
+        catch (SQLException e)
         {
-            try
-            {
-                connection.close();
-                System.out.println("Connection closed.");
-            }
-            catch (SQLException e)
-            {
-                Logger.getLogger(DBConnectMySQL.class.getName()).log(Level.SEVERE, null, e);
-            }
+            Logger.getLogger(DBConnectMySQL.class.getName()).log(Level.SEVERE, null, e);
+            return null;
         }
     }
 }

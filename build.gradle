@@ -43,8 +43,11 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.34'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
 
-    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    // Bcrypt library
     implementation 'org.mindrot:jbcrypt:0.4'
+
+    // HikariCP to manage sql connection pool
+    implementation 'com.zaxxer:HikariCP:5.1.0'
 }
 
 test {
