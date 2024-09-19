@@ -40,7 +40,16 @@ public class UserServiceImpl implements IUserService
         String encodedPassword = PasswordUtil.encodePassword(password);
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
-        userDao.insert(new UserModel(0, username, encodedPassword, email, fullName, null, roleId, phone, date));
+        UserModel user = UserModel.builder()
+                .username(username)
+                .password(encodedPassword)
+                .email(email)
+                .fullName(fullName)
+                .roleId(roleId)
+                .phone(phone)
+                .createdDate(date)
+                .build();
+        userDao.insert(user);
         return true;
     }
 
@@ -59,7 +68,7 @@ public class UserServiceImpl implements IUserService
     @Override
     public boolean checkExistPhone(String phone)
     {
-        return false;
+        return userDao.checkExistPhone(phone);
     }
 
     @Override

@@ -13,4 +13,6 @@ public interface IUserDao
     void insert(UserModel user);
 
     boolean changePassword(String email, String newEncodedPassword);
+
+    boolean checkExistPhone(String phone);
 }
