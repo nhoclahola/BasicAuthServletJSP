@@ -146,6 +146,12 @@
             }
         %>
     </h5>
+    <p>
+        <a href="login"
+           style="text-decoration: none;">
+            Back to login
+        </a>
+    </p>
 </div>
 </body>
 </html>

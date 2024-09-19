@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>HTML Login Form</title>
+    <title>Register</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
