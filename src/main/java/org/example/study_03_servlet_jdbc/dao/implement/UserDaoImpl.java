@@ -24,8 +24,7 @@ public class UserDaoImpl implements IUserDao
     public UserModel findByUsername(String username)
     {
         String query = "SELECT * FROM users WHERE username = ? ";
-        Connection conn = DBConnectMySQL.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(query))
+        try (Connection conn = DBConnectMySQL.getConnection(); PreparedStatement ps = conn.prepareStatement(query))
         {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery())
@@ -57,8 +56,7 @@ public class UserDaoImpl implements IUserDao
     public boolean checkExistUsername(String username)
     {
         String query = "SELECT 1 FROM users WHERE username = ?";
-        Connection conn = DBConnectMySQL.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(query))
+        try (Connection conn = DBConnectMySQL.getConnection(); PreparedStatement ps = conn.prepareStatement(query))
         {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery())
@@ -77,8 +75,7 @@ public class UserDaoImpl implements IUserDao
     public boolean checkExistEmail(String email)
     {
         String query = "SELECT 1 FROM users WHERE email = ?";
-        Connection conn = DBConnectMySQL.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(query))
+        try (Connection conn = DBConnectMySQL.getConnection(); PreparedStatement ps = conn.prepareStatement(query))
         {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery())
@@ -97,8 +94,7 @@ public class UserDaoImpl implements IUserDao
     public void insert(UserModel user)
     {
         String sql = "INSERT INTO users(username, password, email, full_name, phone, avatar, role_id, created_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-        Connection conn = DBConnectMySQL.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(sql))
+        try (Connection conn = DBConnectMySQL.getConnection(); PreparedStatement ps = conn.prepareStatement(sql))
         {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
@@ -120,8 +116,7 @@ public class UserDaoImpl implements IUserDao
     public boolean changePassword(String email, String newEncodedPassword)
     {
         String sql = "UPDATE users SET password = ? WHERE email = ?";
-        Connection conn = DBConnectMySQL.getConnection();
-        try (PreparedStatement ps = conn.prepareStatement(sql))
+        try (Connection conn = DBConnectMySQL.getConnection(); PreparedStatement ps = conn.prepareStatement(sql))
         {
             ps.setString(1, newEncodedPassword);
             ps.setString(2, email);
