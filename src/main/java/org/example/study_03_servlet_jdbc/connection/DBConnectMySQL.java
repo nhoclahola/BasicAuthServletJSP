@@ -10,10 +10,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Singleton
 public class DBConnectMySQL
 {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/ltweb_test";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/basic_auth_servlet_jsp";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
