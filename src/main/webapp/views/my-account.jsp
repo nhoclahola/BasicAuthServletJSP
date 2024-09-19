@@ -67,6 +67,19 @@
                     </c:choose>
                 </h4>
             </li>
+            <li>
+                <c:choose>
+                    <c:when test="${sessionScope.account.roleId == 1}">
+                        <a href="${pageContext.request.contextPath}/admin/home">Back to Home</a>
+                    </c:when>
+                    <c:when test="${sessionScope.account.roleId == 2}">
+                        <a href="${pageContext.request.contextPath}/manager/home">Back to Home</a>
+                    </c:when>
+                    <c:when test="${sessionScope.account.roleId == 3}">
+                        <a href="${pageContext.request.contextPath}/home">Back to Home</a>
+                    </c:when>
+                </c:choose>
+            </li>
         </ul>
     </c:otherwise></c:choose>
 </body>
