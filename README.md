@@ -39,7 +39,7 @@ private static final String PASSWORD = "yourpassword";
 ```
 
 ## How to run
-Alternatively, you can open employee-system-api as a project in IDE (such as Intellij, Eclipse, etc.) and build dependencies there, then start at Tomcat Server. Or you can follow the steps below:
+Alternatively, you can open as a project in IDE (such as Intellij, Eclipse, Spring Tool Suite, etc.) and build dependencies there, then start at Tomcat Server. Or you can follow the steps below:
 ### Build the Project
 1. Clone the repository:
 ```bash
