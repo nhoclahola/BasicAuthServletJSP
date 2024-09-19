@@ -1,5 +1,6 @@
 package org.example.study_03_servlet_jdbc.dao.implement;
 
+import lombok.Getter;
 import org.example.study_03_servlet_jdbc.connection.DBConnectMySQL;
 import org.example.study_03_servlet_jdbc.dao.IUserDao;
 import org.example.study_03_servlet_jdbc.models.UserModel;
@@ -9,9 +10,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// Singleton eager
 public class UserDaoImpl implements IUserDao
 {
     // Connection of this class is taken from HikariCP connection pool, so we don't need to close
+
+    @Getter
+    private static final UserDaoImpl instance = new UserDaoImpl();
+
+    private UserDaoImpl() {}
+
     @Override
     public UserModel findByUsername(String username)
     {

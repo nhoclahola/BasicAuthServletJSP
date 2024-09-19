@@ -1,6 +1,5 @@
 package org.example.study_03_servlet_jdbc.controllers;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -10,7 +9,6 @@ import org.example.study_03_servlet_jdbc.services.IUserService;
 import org.example.study_03_servlet_jdbc.services.implement.UserServiceImpl;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet
@@ -64,7 +62,7 @@ public class LoginController extends HttpServlet
             return;
         }
 
-        IUserService service = new UserServiceImpl();
+        IUserService service = UserServiceImpl.getInstance();
 
         UserModel user = service.login(username, password);
         if (user != null)

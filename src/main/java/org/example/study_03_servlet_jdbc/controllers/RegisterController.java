@@ -50,7 +50,7 @@ public class RegisterController extends HttpServlet
         String email = req.getParameter("email");
         String fullName = req.getParameter("fullName");
         String phone = req.getParameter("phone");
-        IUserService service = new UserServiceImpl();
+        IUserService service = UserServiceImpl.getInstance();
         String alertMsg = "";
         if (service.checkExistUsername(username))
         {

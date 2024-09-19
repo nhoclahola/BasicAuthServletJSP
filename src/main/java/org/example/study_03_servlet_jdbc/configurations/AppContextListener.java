@@ -57,7 +57,7 @@ public class AppContextListener implements ServletContextListener
             e.printStackTrace();
         }
 
-        IUserService service = new UserServiceImpl();
+        IUserService service = UserServiceImpl.getInstance();
         if (!service.checkExistUsername("admin"))
         {
             service.register("admin", "admin", "admin@gmail.com", "ADMIN", 1, "000");

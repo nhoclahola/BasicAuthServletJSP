@@ -1,14 +1,21 @@
 package org.example.study_03_servlet_jdbc.services.implement;
 
+import lombok.Getter;
 import org.example.study_03_servlet_jdbc.dao.IUserDao;
 import org.example.study_03_servlet_jdbc.dao.implement.UserDaoImpl;
 import org.example.study_03_servlet_jdbc.models.UserModel;
 import org.example.study_03_servlet_jdbc.services.IUserService;
 import org.example.study_03_servlet_jdbc.utils.PasswordUtil;
 
+// Singleton eager
 public class UserServiceImpl implements IUserService
 {
-    IUserDao userDao = new UserDaoImpl();
+    @Getter
+    private static final UserServiceImpl instance = new UserServiceImpl();
+
+    IUserDao userDao = UserDaoImpl.getInstance();
+
+    private UserServiceImpl() {}
 
     @Override
     public UserModel get(String username)

@@ -28,7 +28,7 @@ public class ForgotPasswordController extends HttpServlet
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
-        IUserService service = new UserServiceImpl();
+        IUserService service = UserServiceImpl.getInstance();
         String email = req.getParameter("email");
         String newPassword = req.getParameter("password");
         String reNewPassword = req.getParameter("re-password");
