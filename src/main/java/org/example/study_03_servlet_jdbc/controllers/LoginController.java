@@ -30,9 +30,19 @@ public class LoginController extends HttpServlet
             {
                 if (cookie.getName().equals("username"))
                 {
-                    session = req.getSession(true);
-                    session.setAttribute("username", cookie.getValue());
-                    resp.sendRedirect(req.getContextPath() + "/waiting");
+                    IUserService service = UserServiceImpl.getInstance();
+                    UserModel user = service.get(cookie.getValue());
+                    // If found user, create a session and save information to the session
+                    if (user != null)
+                    {
+                        session = req.getSession(true);
+                        session.setAttribute("account", user);
+                        resp.sendRedirect(req.getContextPath() + "/waiting");
+                    }
+                    else
+                    {
+                        resp.sendRedirect(req.getContextPath() + "/login");
+                    }
                     return;
                 }
             }
@@ -89,7 +99,7 @@ public class LoginController extends HttpServlet
     {
         Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER,
                 username);
-        cookie.setMaxAge(30*60);
+        cookie.setMaxAge(60 * 60 * 24);
         cookie.setPath("/");    // Root for entire web
         response.addCookie(cookie);
     }
