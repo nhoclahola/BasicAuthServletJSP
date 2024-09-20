@@ -5,8 +5,13 @@ This project is a simple web application demonstrating basic authentication feat
 ## Features
 
 - **User Registration**: Users can register with a username and password.
-- **Login**: Registered users can log in using their credentials.
+- **Login**: Registered users can log in using their credentials. The login process includes:
+  * **Session Management**: Users are authenticated and their session is created. If a session already exists, users are redirected to a different page (e.g., /waiting).
+  * **Remember Me**: Users can choose to be remembered on their device. If selected, their username is stored in a cookie for future logins.
+  * **Cookie Management**: The application checks for an existing cookie named username and, if found, uses it to automatically log the user in and create a session.
 - **Password Security**: Passwords are hashed using **bcrypt** for secure storage.
+- **Forgot Password**: Users can request a password reset via email (this feature is described generally and would need specific implementation details).
+- **Session Handling**: If a valid session is detected, users are redirected to the appropriate page. Sessions are managed server-side and linked to a cookie on the client-side.
 - **Database Connection Pooling**: **HikariCP** is used to efficiently manage connections to the database.
 
 ## Technologies Used
