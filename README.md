@@ -99,7 +99,7 @@ If your role lacks permission to access other homepages, you will be denied acce
 Or when you haven't login.
 ![image](https://github.com/user-attachments/assets/82341e54-edd7-498d-b1d4-cf70dceb9b2c)
 
-*Note: ADMIN and MANAGER roles can access USER Home page, but they can access Home page of each other.
+*Note: ADMIN and MANAGER roles can access USER Home page, but they can't access Home page of each other.
 
 When you login, your Session ID should be valid in 30 minutes (by default), so you can interact at pages before it expired, to remember login, you can check at checkbox *Remember me" at the Login Page, it will keep you login by cookie in 24 hours (no encrypt so it can be bybass easily).
 
