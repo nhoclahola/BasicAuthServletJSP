@@ -78,6 +78,10 @@ http://localhost:8080/your-war-file-name
 When you enter *http://localhost:8080/your-war-file-name*, it will redirect you to Login Page.
 ![image](https://github.com/user-attachments/assets/6ef3aca5-2f73-48f1-92be-001a2c3f4e30)
 
+If you login information is invalid, a warning message will appear.
+![image](https://github.com/user-attachments/assets/0c575160-37ae-452d-8ed6-5ccd70fc95a2)
+
+
 ### Register Page
 You can navigate to the Registration Page by enter *http://localhost:8080/your-war-file-name/register* or just by clicking at a tag "Create an account" in Login Page.
 ![image](https://github.com/user-attachments/assets/557e4d68-e251-4160-a2c5-a7cf4c47be69)
